@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: bands
+    // Fields: name, genre, origin, videos, social, locality, status
+    //
+    // Collection: matches
+    // Fields: band1Id, band2Id, date, band1Votes, band2Votes, status
+    //
+    // Collection: votes
+    // Document ID: {matchId}_{userId}
+    // Fields: matchId, bandId, userId, timestamp
+    //
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidVote(data) {
+      return data.matchId is string && 
+             data.bandId is string && 
+             data.userId == request.auth.uid;
+    }
+
+    match /bands/{bandId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if false; // Admin only via console for now
+    }
+
+    match /matches/{matchId} {
+      allow read: if true;
+      allow update: if isAuthenticated(); // For incrementing votes
+      allow create, delete: if false;
+    }
+
+    match /votes/{voteId} {
+      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && 
+                   voteId == request.resource.data.matchId + "_" + request.auth.uid &&
+                   isValidVote(request.resource.data);
+    }
+  }
+}

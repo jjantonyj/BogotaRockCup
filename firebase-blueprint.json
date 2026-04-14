@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "Band": {
+      "title": "Band",
+      "description": "A local band participating in the competition",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "genre": { "type": "string" },
+        "origin": { "type": "string" },
+        "videos": { "type": "array", "items": { "type": "string" } },
+        "social": { "type": "object" },
+        "locality": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] }
+      },
+      "required": ["name", "genre", "locality"]
+    },
+    "Match": {
+      "title": "Match",
+      "description": "A competitive match between two bands",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "band1Id": { "type": "string" },
+        "band2Id": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "band1Votes": { "type": "number" },
+        "band2Votes": { "type": "number" },
+        "status": { "type": "string", "enum": ["scheduled", "live", "finished"] }
+      }
+    },
+    "Vote": {
+      "title": "Vote",
+      "description": "A vote cast by a user for a band in a match",
+      "type": "object",
+      "properties": {
+        "matchId": { "type": "string" },
+        "bandId": { "type": "string" },
+        "userId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["matchId", "bandId", "userId"]
+    }
+  },
+  "firestore": {
+    "/bands/{bandId}": {
+      "schema": "Band",
+      "description": "Collection of registered bands"
+    },
+    "/matches/{matchId}": {
+      "schema": "Match",
+      "description": "Collection of matches and their scores"
+    },
+    "/votes/{voteId}": {
+      "schema": "Vote",
+      "description": "Collection of individual votes"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bogota-yellow: #FFCD00;
+  --color-bogota-red: #EF3340;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+}

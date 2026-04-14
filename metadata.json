@@ -1,0 +1,6 @@
+{
+  "name": "Bogotá Rock Cup",
+  "description": "Una plataforma competitiva para bandas locales de Bogotá, inspirada en la estructura del mundial de fútbol, con votaciones en tiempo real y calendario sincronizado.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

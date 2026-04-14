@@ -1,0 +1,30 @@
+[
+  {
+    "id": "match-1",
+    "stage": "Fase de Grupos",
+    "group": "A",
+    "band1Id": "band-1",
+    "band2Id": "band-2",
+    "date": "2026-06-11T15:00:00Z",
+    "durationMinutes": 90,
+    "result": { "band1Votes": 1250, "band2Votes": 980 }
+  },
+  {
+    "id": "match-2",
+    "stage": "Fase de Grupos",
+    "group": "A",
+    "band1Id": "band-3",
+    "band2Id": "band-4",
+    "date": "2026-06-11T18:00:00Z",
+    "durationMinutes": 90
+  },
+  {
+    "id": "match-3",
+    "stage": "Fase de Grupos",
+    "group": "B",
+    "band1Id": "band-1",
+    "band2Id": "band-3",
+    "date": "2026-06-12T15:00:00Z",
+    "durationMinutes": 90
+  }
+]

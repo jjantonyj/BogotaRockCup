@@ -1,0 +1,34 @@
+[
+  {
+    "id": "band-1",
+    "name": "Los Rockeros de Chapinero",
+    "genre": "Rock Alternativo",
+    "origin": "Chapinero, Bogotá",
+    "videos": ["dQw4w9WgXcQ"],
+    "social": { "instagram": "@rockeroschapinero" }
+  },
+  {
+    "id": "band-2",
+    "name": "Metal Suba",
+    "genre": "Heavy Metal",
+    "origin": "Suba, Bogotá",
+    "videos": ["dQw4w9WgXcQ"],
+    "social": { "instagram": "@metalsuba" }
+  },
+  {
+    "id": "band-3",
+    "name": "Punk Bosa",
+    "genre": "Punk",
+    "origin": "Bosa, Bogotá",
+    "videos": ["dQw4w9WgXcQ"],
+    "social": { "instagram": "@punkbosa" }
+  },
+  {
+    "id": "band-4",
+    "name": "Kennedy Blues",
+    "genre": "Blues Rock",
+    "origin": "Kennedy, Bogotá",
+    "videos": ["dQw4w9WgXcQ"],
+    "social": { "instagram": "@kennedyblues" }
+  }
+]
