@@ -29,7 +29,7 @@ export interface Match {
 export interface Sponsor {
   name: string;
   logo: string;
-  type: 'Organizador' | 'Patrocinador' | 'Productor';
+  type: string;
 }
 
 export interface Vote {

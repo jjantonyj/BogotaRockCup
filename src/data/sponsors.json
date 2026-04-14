@@ -1,12 +1,12 @@
 [
   {
-    "name": "Alcaldía de Bogotá",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Escudo_de_Bogot%C3%A1.svg/1200px-Escudo_de_Bogot%C3%A1.svg.png",
-    "type": "Organizador"
+    "name": "Big black box",
+    "logo": "/caja.png",
+    "type": "Organiza"
   },
   {
-    "name": "Rock al Parque",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Rock_al_Parque_logo.svg/1200px-Rock_al_Parque_logo.svg.png",
-    "type": "Patrocinador"
+    "name": "Baltika Records",
+    "logo": "/baltika.jpg",
+    "type": "Produce"
   }
 ]

@@ -14,7 +14,7 @@ export function Footer() {
               <img 
                 src={sponsor.logo} 
                 alt={sponsor.name} 
-                className="h-8 w-auto grayscale hover:grayscale-0 transition-all"
+                className="h-10 w-auto transition-all"
                 referrerPolicy="no-referrer"
               />
               <div className="flex flex-col">
