@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { motion } from 'motion/react';
 import { Send, Youtube, Instagram, Facebook, MapPin } from 'lucide-react';
+import { addBand } from '../firebase';
 
 const registrationSchema = z.object({
   bandName: z.string().min(2, 'El nombre de la banda es requerido'),
@@ -29,14 +30,44 @@ const BOGOTA_LOCALITIES = [
 ];
 
 export function Registration() {
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<RegistrationForm>({
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<RegistrationForm>({
     resolver: zodResolver(registrationSchema),
   });
 
   const onSubmit = async (data: RegistrationForm) => {
-    console.log(data);
-    // Here we would save to Firestore
-    alert('¡Inscripción enviada con éxito! El jurado revisará tu propuesta.');
+    try {
+      // Extract YouTube ID from URL if possible, or just store the URL
+      const getYoutubeId = (url: string) => {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : url;
+      };
+
+      const bandData = {
+        name: data.bandName,
+        genre: data.genre,
+        contactName: data.contactName,
+        email: data.email,
+        locality: data.locality,
+        social: {
+          instagram: data.instagram,
+          facebook: data.facebook
+        },
+        videos: [
+          getYoutubeId(data.video1),
+          getYoutubeId(data.video2),
+          getYoutubeId(data.video3)
+        ],
+        status: 'pending'
+      };
+
+      await addBand(bandData);
+      alert('¡Inscripción enviada con éxito! El jurado revisará tu propuesta.');
+      reset(); // Clear form fields
+    } catch (error) {
+      console.error('Error saving registration:', error);
+      alert('Hubo un error al enviar la inscripción. Por favor intenta de nuevo.');
+    }
   };
 
   return (

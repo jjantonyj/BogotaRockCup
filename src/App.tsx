@@ -7,6 +7,7 @@ import { Registration } from './components/Registration';
 import { Calendar } from './components/Calendar';
 import { MatchView } from './components/MatchView';
 import { Results } from './components/Results';
+import { Admin } from './components/Admin';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/partidos" element={<MatchView />} />
             <Route path="/partidos/:id" element={<MatchView />} />
             <Route path="/resultados" element={<Results />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
         <Footer />

@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Music, Trophy, Calendar, UserPlus, Home } from 'lucide-react';
+import { Music, Trophy, Calendar, UserPlus, Home, ShieldCheck } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { auth, isAdmin } from '../firebase';
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 
 export function Navbar() {
   const location = useLocation();
+  const [user, setUser] = React.useState<FirebaseUser | null>(null);
+
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const navItems = [
     { path: '/', label: 'Inicio', icon: Home },
@@ -43,6 +53,19 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
+            
+            <Link
+              to="/admin"
+              className={cn(
+                "p-2 rounded-full transition-all",
+                location.pathname === '/admin'
+                  ? "bg-bogota-yellow text-zinc-950"
+                  : "text-zinc-400 hover:text-white hover:bg-zinc-900"
+              )}
+              title="Administración"
+            >
+              <ShieldCheck className="w-5 h-5" />
+            </Link>
           </div>
 
           <button className="md:hidden p-2 text-zinc-400">

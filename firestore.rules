@@ -29,26 +29,35 @@ service cloud.firestore {
     function isValidVote(data) {
       return data.matchId is string && 
              data.bandId is string && 
-             data.userId == request.auth.uid;
+             data.userId == request.auth.uid &&
+             data.timestamp is timestamp;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && 
+             ((request.auth.token.email == "jantonyj2006@gmail.com" || request.auth.token.email == "lapd8402@gmail.com") && request.auth.token.email_verified == true);
     }
 
     match /bands/{bandId} {
       allow read: if true;
-      allow create: if isAuthenticated();
-      allow update, delete: if false; // Admin only via console for now
+      allow write: if isAdmin(); 
     }
 
     match /matches/{matchId} {
       allow read: if true;
-      allow update: if isAuthenticated(); // For incrementing votes
-      allow create, delete: if false;
+      allow write: if isAdmin();
     }
 
     match /votes/{voteId} {
-      allow read: if isAuthenticated() && request.auth.uid == resource.data.userId;
-      allow create: if isAuthenticated() && 
-                   voteId == request.resource.data.matchId + "_" + request.auth.uid &&
-                   isValidVote(request.resource.data);
+      // Allow authenticated users to read votes to see the scoreboard
+      allow read: if isAuthenticated();
+      
+      // Allow users to create or update their own vote
+      allow create, update: if isAuthenticated() && 
+                           request.resource.data.userId == request.auth.uid &&
+                           isValidVote(request.resource.data);
+      
+      allow delete: if false;
     }
   }
 }
